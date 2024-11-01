@@ -15,7 +15,7 @@ CREATE TABLE regular_users (
     CHECK (weekly_session_count BETWEEN 0 AND 10),
     monthly_invite_count INT
     CHECK (monthly_invite_count BETWEEN 0 AND 20),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+FOREIGN KEY (user_id) REFERENCES users(user_id)
     ON DELETE CASCADE
 );
 -- Створення таблиці INVITED_USERS
@@ -23,7 +23,7 @@ CREATE TABLE invited_users (
     invited_user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     invitation_status ENUM('pending', 'accepted', 'rejected') NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+FOREIGN KEY (user_id) REFERENCES users(user_id)
     ON DELETE CASCADE
 );
 -- Створення таблиці MUSIC_SESSIONS
@@ -56,7 +56,7 @@ CREATE TABLE invitations (
     invitation_id INT PRIMARY KEY AUTO_INCREMENT,
     recipient_email VARCHAR(100) NOT NULL
     CHECK (recipient_email REGEXP '^[^@]+@[^@]+\\.[^@]+$'),
-    invitation_status ENUM('sent', 'delivered', 'accepted', 'rejected') NOT NULL,
+invitation_status ENUM('sent', 'delivered', 'accepted', 'rejected') NOT NULL,
     sent_at DATETIME NOT NULL
     CHECK (sent_at <= NOW())
 );
