@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Music App Schema",
+  "description": "Схема даних для музичного додатку",
+  "type": "object",
+  "properties": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "Електронна адреса користувача",
+          "type": "string",
+          "format": "email",
+          "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+        },
+        "name": {
+          "description": "Ім'я користувача",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "isAuthorized": {
+          "description": "Статус авторизації користувача",
+          "type": "boolean"
+        }
+      },
+      "required": ["email", "name", "isAuthorized"]
+    },
+    "RegularUser": {
+      "type": "object",
+      "properties": {
+        "weeklySessionCount": {
+          "description": "Кількість створених сесій за тиждень",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "monthlyInviteCount": {
+          "description": "Кількість відправлених запрошень за місяць",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        }
+      },
+      "required": ["weeklySessionCount", "monthlyInviteCount"]
+    },
+    "InvitedUser": {
+      "type": "object",
+      "properties": {
+        "invitationStatus": {
+          "description": "Статус запрошення користувача",
+          "type": "string",
+          "enum": ["pending", "accepted", "rejected"]
+        }
+      },
+      "required": ["invitationStatus"]
+    },
+    "MusicSession": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Дата та час створення сесії",
+          "type": "string",
+          "format": "date-time"
+        },
+        "maxParticipants": {
+          "description": "Максимальна кількість учасників",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        },
+        "status": {
+          "description": "Поточний стан сесії",
+          "type": "string",
+          "enum": ["active", "ended", "paused"]
+        }
+      },
+      "required": ["createdAt", "maxParticipants", "status"]
+    },
+    "Playlist": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Назва плейлиста",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "description": {
+          "description": "Опис плейлиста",
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "required": ["name"]
+    },
+    "Track": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "Назва музичного треку",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "duration": {
+          "description": "Тривалість треку в секундах",
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": ["title", "duration"]
+    },
+    "Invitation": {
+      "type": "object",
+      "properties": {
+        "recipientEmail": {
+          "description": "Email отримувача запрошення",
+          "type": "string",
+          "format": "email",
+          "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+        },
+        "status": {
+          "description": "Статус запрошення",
+          "type": "string",
+          "enum": ["sent", "delivered", "accepted", "rejected"]
+        },
+        "sentAt": {
+          "description": "Дата та час відправлення запрошення",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["recipientEmail", "status", "sentAt"]
+    }
+  },
+  "required": ["User", "RegularUser", "InvitedUser", "MusicSession", "Playlist", "Track", "Invitation"]
+}
