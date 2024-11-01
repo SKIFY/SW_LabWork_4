@@ -21,7 +21,7 @@ jobs:
 
     - name: Lint SQL schema
       run: |
-        sqlfluff lint $GITHUB_WORKSPACE/DataSchema.sql --dialect mysql
+        sqlfluff lint $GITHUB_WORKSPACE/DataSchemaModified.sql --dialect mysql
 
   check-json-schema:
     runs-on: ubuntu-latest
@@ -32,4 +32,4 @@ jobs:
 
     - name: Validate JSON schema
       run: |
-        jq . $GITHUB_WORKSPACE/DataSchemaModified.json
+        jq . $GITHUB_WORKSPACE/DataSchema.json
