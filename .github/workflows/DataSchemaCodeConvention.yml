@@ -21,7 +21,7 @@ jobs:
 
     - name: Lint SQL schema
       run: |
-        sqlfluff lint $GITHUB_WORKSPACE/DataSchema.sql --dialect oracle
+        sqlfluff lint $GITHUB_WORKSPACE/DataSchema.sql --dialect mysql
 
   check-json-schema:
     runs-on: ubuntu-latest
