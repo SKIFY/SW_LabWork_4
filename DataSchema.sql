@@ -1,54 +1,54 @@
--- Створення таблиці User
-CREATE TABLE Users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(100) NOT NULL CHECK (email REGEXP '^[^@]+@[^@]+\\.[^@]+$'),
-    name VARCHAR(50) NOT NULL CHECK (CHAR_LENGTH(name) BETWEEN 2 AND 50),
-    isAuthorized BOOLEAN NOT NULL
+-- Створення таблиці USERS
+CREATE TABLE USERS (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    EMAIL VARCHAR(100) NOT NULL CHECK (EMAIL REGEXP '^[^@]+@[^@]+\\.[^@]+$'),
+    NAME VARCHAR(50) NOT NULL CHECK (CHAR_LENGTH(NAME) BETWEEN 2 AND 50),
+    IS_AUTHORIZED BOOLEAN NOT NULL
 );
 
--- Створення таблиці RegularUser
-CREATE TABLE RegularUsers (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    userId INT,
-    weeklySessionCount INT CHECK (weeklySessionCount BETWEEN 0 AND 10),
-    monthlyInviteCount INT CHECK (monthlyInviteCount BETWEEN 0 AND 20),
-    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE
+-- Створення таблиці REGULAR_USERS
+CREATE TABLE REGULAR_USERS (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    USER_ID INT,
+    WEEKLY_SESSION_COUNT INT CHECK (WEEKLY_SESSION_COUNT BETWEEN 0 AND 10),
+    MONTHLY_INVITE_COUNT INT CHECK (MONTHLY_INVITE_COUNT BETWEEN 0 AND 20),
+    FOREIGN KEY (USER_ID) REFERENCES USERS(ID) ON DELETE CASCADE
 );
 
--- Створення таблиці InvitedUser
-CREATE TABLE InvitedUsers (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    userId INT,
-    invitationStatus ENUM('pending', 'accepted', 'rejected') NOT NULL,
-    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE
+-- Створення таблиці INVITED_USERS
+CREATE TABLE INVITED_USERS (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    USER_ID INT,
+    INVITATION_STATUS ENUM('pending', 'accepted', 'rejected') NOT NULL,
+    FOREIGN KEY (USER_ID) REFERENCES USERS(ID) ON DELETE CASCADE
 );
 
--- Створення таблиці MusicSession
-CREATE TABLE MusicSessions (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    createdAt DATETIME NOT NULL CHECK (createdAt > NOW()),
-    maxParticipants INT CHECK (maxParticipants BETWEEN 1 AND 6),
-    status ENUM('active', 'ended', 'paused') NOT NULL
+-- Створення таблиці MUSIC_SESSIONS
+CREATE TABLE MUSIC_SESSIONS (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    CREATED_AT DATETIME NOT NULL CHECK (CREATED_AT > NOW()),
+    MAX_PARTICIPANTS INT CHECK (MAX_PARTICIPANTS BETWEEN 1 AND 6),
+    STATUS ENUM('active', 'ended', 'paused') NOT NULL
 );
 
--- Створення таблиці Playlist
-CREATE TABLE Playlists (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL CHECK (CHAR_LENGTH(name) BETWEEN 1 AND 100),
-    description VARCHAR(500) CHECK (CHAR_LENGTH(description) BETWEEN 0 AND 500)
+-- Створення таблиці PLAYLISTS
+CREATE TABLE PLAYLISTS (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(100) NOT NULL CHECK (CHAR_LENGTH(NAME) BETWEEN 1 AND 100),
+    DESCRIPTION VARCHAR(500) CHECK (CHAR_LENGTH(DESCRIPTION) BETWEEN 0 AND 500)
 );
 
--- Створення таблиці Track
-CREATE TABLE Tracks (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(200) NOT NULL CHECK (CHAR_LENGTH(title) BETWEEN 1 AND 200),
-    duration INT CHECK (duration > 0)
+-- Створення таблиці TRACKS
+CREATE TABLE TRACKS (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    TITLE VARCHAR(200) NOT NULL CHECK (CHAR_LENGTH(TITLE) BETWEEN 1 AND 200),
+    DURATION INT CHECK (DURATION > 0)
 );
 
--- Створення таблиці Invitation
-CREATE TABLE Invitations (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    recipientEmail VARCHAR(100) NOT NULL CHECK (recipientEmail REGEXP '^[^@]+@[^@]+\\.[^@]+$'),
-    status ENUM('sent', 'delivered', 'accepted', 'rejected') NOT NULL,
-    sentAt DATETIME NOT NULL CHECK (sentAt <= NOW())
+-- Створення таблиці INVITATIONS
+CREATE TABLE INVITATIONS (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    RECIPIENT_EMAIL VARCHAR(100) NOT NULL CHECK (RECIPIENT_EMAIL REGEXP '^[^@]+@[^@]+\\.[^@]+$'),
+    STATUS ENUM('sent', 'delivered', 'accepted', 'rejected') NOT NULL,
+    SENT_AT DATETIME NOT NULL CHECK (SENT_AT <= NOW())
 );
