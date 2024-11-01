@@ -32,4 +32,4 @@ jobs:
 
     - name: Validate JSON schema
       run: |
-        jq . $GITHUB_WORKSPACE/DataSchema.json
+        jq . $GITHUB_WORKSPACE/DataSchemaModified.json
