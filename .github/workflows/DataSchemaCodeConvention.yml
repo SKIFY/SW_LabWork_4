@@ -1,0 +1,35 @@
+name: Check Data Schema Code Conventions
+
+on:
+  push:
+    branches: [ SW_LabWork_4 ]
+  pull_request:
+    branches: [ SW_LabWork_4 ]
+  workflow_dispatch:
+
+jobs:
+  check-sql-schema:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install sqlfluff
+      run: |
+        pip install sqlfluff
+
+    - name: Lint SQL schema
+      run: |
+        sqlfluff lint $GITHUB_WORKSPACE/DataSchema.sql --dialect oracle
+
+  check-json-schema:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Validate JSON schema
+      run: |
+        jq . $GITHUB_WORKSPACE/DataSchema.json
