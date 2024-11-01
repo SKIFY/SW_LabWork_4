@@ -56,7 +56,7 @@ CREATE TABLE invitations (
     invitation_id INT PRIMARY KEY AUTO_INCREMENT,
     recipient_email VARCHAR(100) NOT NULL
     CHECK (recipient_email REGEXP '^[^@]+@[^@]+\\.[^@]+$'),
-invitation_status ENUM('sent', 'delivered', 'accepted', 'rejected') NOT NULL,
+    invitation_status ENUM('sent', 'delivered', 'acepted', 'rejected') NOT NULL,
     sent_at DATETIME NOT NULL
     CHECK (sent_at <= NOW())
 );
